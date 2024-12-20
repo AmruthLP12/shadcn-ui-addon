@@ -1,16 +1,16 @@
 "use client";
 
 import { CodePreview } from "@/components/CodePreview";
-import ButtonOne from "@/components/ButtonPre";
+import ButtonPre from "@/components/ButtonPre";
 
 const codeExample = `import React from 'react';
-import { LoadingButton } from '@/components/ui/loading-button';
+import { ButtonPre } from '@/components/ButtonPre';
 
-const LoadingButtonDemo = () => {
-  return <LoadingButton loading>loading button</LoadingButton>;
+const ButtonRight = () => {
+  return <ButtonPre>Right</ButtonPre>;
 };
 
-export default LoadingButtonDemo;`;
+export default ButtonRight;`;
 
 export default function ComponentDocsPage() {
   return (
@@ -26,7 +26,7 @@ export default function ComponentDocsPage() {
 
       <main className="w-full max-w-[90%] lg:max-w-[1200px] space-y-10">
         <CodePreview
-          preview={<div><ButtonOne/></div>}
+          preview={<div><ButtonPre>Right</ButtonPre></div>}
           code={codeExample}
         />
 
