@@ -61,9 +61,9 @@ export function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center lg:justify-between justify-center">
-        <div className=" items-center space-x-4 lg:flex hidden">
-          <div className="text-lg font-bold ">Shadcn-addons</div>
+      <div className="container flex h-20 items-center lg:justify-between justify-center">
+        <div className="items-center pl-6 space-x-4 lg:flex hidden">
+          <Link href='/' className="text-lg font-bold">Shadcn-addons</Link>
           <nav className="flex items-center space-x-4 text-sm font-medium">
             <Link href="/docs" className="transition-colors hover:text-foreground/80 text-foreground/60">
               Docs
@@ -115,7 +115,7 @@ export function Navbar() {
             </DialogContent>
           </Dialog>
           <Button variant="ghost" size="icon" aria-label="GitHub">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/AmruthLP12/shadcn-ui-addon" target="_blank" rel="noopener noreferrer">
               <Github className="h-4 w-4" />
               <span className="sr-only">GitHub</span>
             </a>

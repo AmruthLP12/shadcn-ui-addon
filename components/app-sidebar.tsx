@@ -20,8 +20,7 @@ const navItems = [
   {
     title: 'Getting Started',
     items: [
-      { title: 'Introduction', url: '/' },
-      { title: 'Installation', url: '/docs' },
+      { title: 'Introduction', url: '/docs' },
     ],
   },
   {

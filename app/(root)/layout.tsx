@@ -6,7 +6,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "shadcn-ui/addons",
+  title: "ShadCN UI Addons",
   description:
     "Enhance your UI with powerful addons for shadcn-ui, designed to extend functionality and streamline your development workflow.",
 };
