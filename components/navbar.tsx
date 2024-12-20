@@ -23,10 +23,15 @@ const searchItems = [
 ]
 
 export function Navbar() {
+  const [mounted, setMounted] = React.useState(false)
   const { setTheme, theme } = useTheme()
   const [open, setOpen] = React.useState(false)
   const [searchQuery, setSearchQuery] = React.useState('')
   const router = useRouter()
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -48,6 +53,10 @@ export function Navbar() {
     setOpen(false)
     setSearchQuery('')
     router.push(item.url)
+  }
+
+  if (!mounted) {
+    return null
   }
 
   return (

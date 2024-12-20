@@ -1,12 +1,9 @@
 'use client'
 
-import * as React from 'react'
+import { GalleryVerticalEnd } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { GalleryVerticalEnd, Search } from 'lucide-react'
 
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import {
   Sidebar,
   SidebarContent,
@@ -15,8 +12,8 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuItem,
   SidebarMenuButton,
+  SidebarMenuItem,
 } from '@/components/ui/sidebar'
 
 const navItems = [
@@ -24,7 +21,7 @@ const navItems = [
     title: 'Getting Started',
     items: [
       { title: 'Introduction', url: '/' },
-      { title: 'Installation', url: '/getting-started' },
+      { title: 'Installation', url: '/docs/getting-started' },
     ],
   },
   {
