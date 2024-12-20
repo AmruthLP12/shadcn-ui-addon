@@ -1,14 +1,14 @@
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Introduction | Minimal Docs Site',
-  description: 'Welcome to our minimal documentation site',
+  title: 'Welcome Page',
+  description: 'Welcome to shadcn-addons page',
 }
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-3xl">
-      <h1 className="mb-6 text-4xl font-bold">Welcome to Our Docs</h1>
+    <main className="mx-auto max-w-5xl">
+      <h1 className="mb-6 text-4xl font-bold">Welcome to Shadcn Addons Docs</h1>
       <p className="mb-4">
         This is a gorgeous minimal documentation site built with Next.js,
         Tailwind CSS, and shadcn/ui components.

@@ -18,6 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Google site verification */}
+        <meta name="google-site-verification" content="m3gcO3z77CpmDFtlEBa5Qk-g2yMOUvIFj34TKqbJMoU" />
+      </head>
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />

@@ -21,7 +21,7 @@ const navItems = [
     title: 'Getting Started',
     items: [
       { title: 'Introduction', url: '/' },
-      { title: 'Installation', url: '/docs/getting-started' },
+      { title: 'Installation', url: '/docs' },
     ],
   },
   {

@@ -17,9 +17,9 @@ import Link from 'next/link'
 
 const searchItems = [
   { title: 'Home', url: '/' },
-  { title: 'Getting Started', url: '/getting-started' },
-  { title: 'Components', url: '/components' },
-  { title: 'API Reference', url: '/api-reference' },
+  { title: 'Getting Started', url: '/docs' },
+  { title: 'Components', url: 'docs/components' },
+  { title: 'API Reference', url: 'docs/api-reference' },
 ]
 
 export function Navbar() {
@@ -61,9 +61,9 @@ export function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <div className="text-lg font-bold">Amruth</div>
+      <div className="container flex h-16 items-center lg:justify-between justify-center">
+        <div className=" items-center space-x-4 lg:flex hidden">
+          <div className="text-lg font-bold ">Shadcn-addons</div>
           <nav className="flex items-center space-x-4 text-sm font-medium">
             <Link href="/docs" className="transition-colors hover:text-foreground/80 text-foreground/60">
               Docs
@@ -73,7 +73,7 @@ export function Navbar() {
             </Link>
           </nav>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 lg:space-x-0">
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <div className="relative">
@@ -84,7 +84,7 @@ export function Navbar() {
                   className="w-64 pl-8 pr-12"
                   readOnly
                 />
-                <kbd className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 transform rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+                <kbd className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 transform rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100 lg:block hidden">
                   <span className="text-xs">⌘</span>K
                 </kbd>
               </div>
