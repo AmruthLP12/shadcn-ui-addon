@@ -39,7 +39,7 @@ export default function Home() {
           </Button>
           {/* Button 3: GitHub */}
           <Button asChild>
-            <Link href="https://github.com/AmruthLP12/shadcn-ui-addon" target="_blank" rel="noopener noreferrer" className="flex items-center px-6 py-3 bg-black hover:text-black text-white font-medium text-lg rounded-lg hover:bg-gray-900 transition">
+            <Link href="https://github.com/AmruthLP12/shadcn-ui-addon" target="_blank" rel="noopener noreferrer" className="flex items-center px-6 py-3 bg-gray-700 hover:text-white/70 text-white font-medium text-lg rounded-lg hover:bg-gray-500 transition">
               <Github className="mr-2 text-2xl" />
               GitHub
             </Link>
