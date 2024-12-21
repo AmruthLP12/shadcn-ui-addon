@@ -1,78 +1,97 @@
-"use client";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+'use client'
 
-export const WobbleCard = ({
-  children,
-  containerClassName,
-  className,
-}: {
-  children: React.ReactNode;
-  containerClassName?: string;
-  className?: string;
-}) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
+import React, { useState, useRef, useEffect } from 'react'
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 
-  const handleMouseMove = (event: React.MouseEvent<HTMLElement>) => {
-    const { clientX, clientY } = event;
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = (clientX - (rect.left + rect.width / 2)) / 20;
-    const y = (clientY - (rect.top + rect.height / 2)) / 20;
-    setMousePosition({ x, y });
-  };
+interface WobbleCardProps {
+  title: string
+  description: string
+  content: React.ReactNode
+  footer?: React.ReactNode
+  imageUrl: string
+}
+
+export function WobbleCard({ title, description, content, footer, imageUrl }: WobbleCardProps) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [hovered, setHovered] = useState(false)
+
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+
+  const dampen = 20
+  const springConfig = { damping: 20, stiffness: 300 }
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig)
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springConfig)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return
+    const rect = ref.current.getBoundingClientRect()
+    const width = rect.width
+    const height = rect.height
+    const mouseXFromCenter = e.clientX - rect.left - width / 2
+    const mouseYFromCenter = e.clientY - rect.top - height / 2
+    mouseX.set(mouseXFromCenter / width)
+    mouseY.set(mouseYFromCenter / height)
+  }
+
+  const handleMouseLeave = () => {
+    mouseX.set(0)
+    mouseY.set(0)
+    setHovered(false)
+  }
+
+  useEffect(() => {
+    const unsubscribeX = rotateX.on('change', () => {})
+    const unsubscribeY = rotateY.on('change', () => {})
+    return () => {
+      unsubscribeX()
+      unsubscribeY()
+    }
+  }, [rotateX, rotateY])
+
   return (
-    <motion.section
+    <motion.div
+      ref={ref}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => {
-        setIsHovering(false);
-        setMousePosition({ x: 0, y: 0 });
-      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={handleMouseLeave}
       style={{
-        transform: isHovering
-          ? `translate3d(${mousePosition.x}px, ${mousePosition.y}px, 0) scale3d(1, 1, 1)`
-          : "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
-        transition: "transform 0.1s ease-out",
+        transformStyle: "preserve-3d",
+        rotateX: rotateX,
+        rotateY: rotateY,
       }}
-      className={cn(
-        "mx-auto w-full bg-indigo-800  relative rounded-2xl overflow-hidden",
-        containerClassName
-      )}
+      className="relative w-[350px] h-[450px]"
     >
-      <div
-        className="relative  h-full [background-image:radial-gradient(88%_100%_at_top,rgba(255,255,255,0.5),rgba(255,255,255,0))]  sm:mx-0 sm:rounded-2xl overflow-hidden"
-        style={{
-          boxShadow:
-            "0 10px 32px rgba(34, 42, 53, 0.12), 0 1px 1px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(34, 42, 53, 0.05), 0 4px 6px rgba(34, 42, 53, 0.08), 0 24px 108px rgba(47, 48, 55, 0.10)",
-        }}
-      >
+      <Card className="w-full h-full overflow-hidden">
         <motion.div
+          className="absolute inset-0 bg-cover bg-center z-0"
           style={{
-            transform: isHovering
-              ? `translate3d(${-mousePosition.x}px, ${-mousePosition.y}px, 0) scale3d(1.03, 1.03, 1)`
-              : "translate3d(0px, 0px, 0) scale3d(1, 1, 1)",
-            transition: "transform 0.1s ease-out",
+            backgroundImage: `url(${imageUrl})`,
+            filter: hovered ? 'brightness(0.8)' : 'brightness(0.6)',
           }}
-          className={cn("h-full px-4 py-20 sm:px-10", className)}
+          animate={{ scale: hovered ? 1.1 : 1 }}
+          transition={{ duration: 0.3 }}
+        />
+        <motion.div
+          className="relative z-10 flex flex-col justify-end h-full text-foreground p-6"
+          style={{ transform: "translateZ(50px)" }}
         >
-          <Noise />
-          {children}
+          <CardHeader className="p-0 mb-2">
+            <CardTitle className="text-2xl font-bold">{title}</CardTitle>
+            <CardDescription className="text-foreground/80">{description}</CardDescription>
+          </CardHeader>
+          <CardContent className="p-0 mb-4">
+            {content}
+          </CardContent>
+          {footer && (
+            <CardFooter className="p-0">
+              {footer}
+            </CardFooter>
+          )}
         </motion.div>
-      </div>
-    </motion.section>
-  );
-};
+      </Card>
+    </motion.div>
+  )
+}
 
-const Noise = () => {
-  return (
-    <div
-      className="absolute inset-0 w-full h-full scale-[1.2] transform opacity-10 [mask-image:radial-gradient(#fff,transparent,75%)]"
-      style={{
-        backgroundImage: "url(/noise.webp)",
-        backgroundSize: "30%",
-      }}
-    ></div>
-  );
-};
